@@ -1,15 +1,8 @@
+/* eslint-disable unicorn/better-regex */
 import {regex} from '../index';
-
-// Custom matcher to compare regexes
-// expect.extend({
-// toMatchRegex(recieved, expected) {
-
-// }
-// });
 
 it('should build regexes properly', () => {
 	expect(regex``).toStrictEqual(/(?:)/);
-	/* eslint-disable-next-line unicorn/better-regex */
 	expect(regex`[0-9]`).toStrictEqual(/[0-9]/);
 	expect(regex`
 		// Here's a comment
@@ -61,5 +54,5 @@ it('should build regexes properly', () => {
 			May not match everything because extensions are (mostly) letters
 		*/
 		[a-z0-9](?:[a-z0-9-]*[a-z0-9])?
-	${'g'}`).toStrictEqual(/[a-z\d!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z\d!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z\d](?:[a-z\d-]*[a-z\d])?\.)+[a-z\d](?:[a-z\d-]*[a-z\d])?/g);
+	${'g'}`).toStrictEqual(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z\d!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z\d](?:[a-z\d-]*[a-z\d])?\.)+[a-z\d](?:[a-z\d-]*[a-z\d])?/g);
 });
