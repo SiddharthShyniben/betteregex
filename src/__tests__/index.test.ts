@@ -10,7 +10,7 @@ import {regex} from '../index';
 it('should build regexes properly', () => {
 	expect(regex``).toStrictEqual(/(?:)/);
 	/* eslint-disable-next-line unicorn/better-regex */
-	expect(regex`[0-9]`).toStrictEqual(/[0-9]+/);
+	expect(regex`[0-9]`).toStrictEqual(/[0-9]/);
 	expect(regex`
 		// Here's a comment
 		\d+
