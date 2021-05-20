@@ -8,7 +8,7 @@
 	],
 	"scripts": {
 		"test": "npm run lint && jest --config jest.config.json",
-		"lint": "xo --fix",
+		"lint": "xo",
 		"build": "tsc",
 		"prepare": "npm run build",
 		"prepublishOnly": "npm run test && npm run lint",
