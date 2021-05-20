@@ -11,7 +11,7 @@
 		"lint": "xo",
 		"build": "tsc",
 		"prepare": "npm run build",
-		"prepublishOnly": "npm run test && npm run lint",
+		"prepublishOnly": "npm run test",
 		"preversion": "npm run lint"
 	},
 	"repository": {
