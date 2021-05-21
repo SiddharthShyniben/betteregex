@@ -43,8 +43,7 @@ export function clean(piece: string): string {
  * @returns {string} The stringified regex
  */
 function parse(interpol: any): string {
-	if (interpol instanceof RegExp) return interpol.source;
-	else return interpol.toString()
+	return interpol instanceof RegExp ? interpol.source : [interpol].join();
 }
 
 /**
@@ -54,12 +53,12 @@ function parse(interpol: any): string {
  * @returns {RegExp} The parsed regex
  */
 export function regex({raw}: TemplateStringsArray, ...interpolations: any[]): RegExp {
-	const flags: string | undefined = raw[raw.length - 1] ? undefined : interpolations.pop();
+	const flags = raw[raw.length - 1] ? '' : parse(interpolations.pop());
 	/* eslint-disable-next-line unicorn/no-array-reduce */
 	return new RegExp(interpolations.reduce(
 		(regexp, insert, index) => {
-			return `${regexp}${parse(insert)}${clean(raw[index + 1])}`;
+			return `${parse(regexp)}${parse(insert)}${clean(raw[index + 1])}`;
 		},
 		clean(raw[0])
-	), flags);
+	) as string, flags);
 }
