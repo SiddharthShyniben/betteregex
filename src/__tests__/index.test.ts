@@ -13,6 +13,13 @@ it('should build regexes properly', () => {
 
 	expect(regex`
 		// Here's an interpolation
+		${/\d+\s/g}
+		/* Here's a nested regex call */
+		${regex`.*`}
+	`).toStrictEqual(/\d+\s.*/);
+
+	expect(regex`
+		// Here's an interpolation
 
 		${true.toString()}
 
@@ -54,5 +61,5 @@ it('should build regexes properly', () => {
 			May not match everything because extensions are (mostly) letters
 		*/
 		[a-z0-9](?:[a-z0-9-]*[a-z0-9])?
-	${'g'}`).toStrictEqual(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z\d!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z\d](?:[a-z\d-]*[a-z\d])?\.)+[a-z\d](?:[a-z\d-]*[a-z\d])?/g);
+	${'g'}`).toStrictEqual(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g);
 });
