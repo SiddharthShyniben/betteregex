@@ -20,11 +20,11 @@
  */
 
 /**
- * Clean a string (remove comments, whitespace, extra stuff in other template literals and such)
+ * Clean a string (remove comments, whitespace, etc.)
  * @param piece the string to clean
- * @returns string
+ * @returns {string} th cleaned string
  */
-export function clean(piece: string) {
+export function clean(piece: string): string {
 	// Funny how we don't use our own functions to build our own regexes
 	return piece
 		// Get rid of any escaped (`) tildes
@@ -37,12 +37,28 @@ export function clean(piece: string) {
 		.replace(/\n\s*/g, '');
 }
 
-export function regex({raw}: TemplateStringsArray, ...interpolations: string[]) {
+/**
+ * Parse an object to make it embeddable within an object
+ * @param interpol the interpolation to parse5
+ * @returns {string} The stringified regex
+ */
+function parse(interpol: any): string {
+	if (interpol instanceof RegExp) return interpol.source;
+	else return interpol.toString()
+}
+
+/**
+ * Convert a string to a regex
+ * @param param0 The template strings array
+ * @param interpolations the interpolations
+ * @returns {RegExp} The parsed regex
+ */
+export function regex({raw}: TemplateStringsArray, ...interpolations: any[]): RegExp {
 	const flags: string | undefined = raw[raw.length - 1] ? undefined : interpolations.pop();
 	/* eslint-disable-next-line unicorn/no-array-reduce */
 	return new RegExp(interpolations.reduce(
 		(regexp, insert, index) => {
-			return `${regexp}${insert}${clean(raw[index + 1])}`;
+			return `${regexp}${parse(insert)}${clean(raw[index + 1])}`;
 		},
 		clean(raw[0])
 	), flags);
