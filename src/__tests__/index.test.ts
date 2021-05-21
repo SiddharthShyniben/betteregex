@@ -54,5 +54,5 @@ it('should build regexes properly', () => {
 			May not match everything because extensions are (mostly) letters
 		*/
 		[a-z0-9](?:[a-z0-9-]*[a-z0-9])?
-	${'g'}`).toStrictEqual(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z\d!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z\d](?:[a-z\d-]*[a-z\d])?\.)+[a-z\d](?:[a-z\d-]*[a-z\d])?/g);
+	${'g'}`).toStrictEqual(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g);
 });
