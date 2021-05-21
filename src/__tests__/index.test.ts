@@ -13,6 +13,13 @@ it('should build regexes properly', () => {
 
 	expect(regex`
 		// Here's an interpolation
+		${/\d+\s/g}
+		/* Here's a nested regex call */
+		${regex`.*`}
+	`).toStrictEqual(/\d+\s.*/);
+
+	expect(regex`
+		// Here's an interpolation
 
 		${true.toString()}
 
